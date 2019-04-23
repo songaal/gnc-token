@@ -5,40 +5,39 @@ import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
 /**
  * Math operations with safety checks
  */
+contract SafeMath {
+  function safeMul(uint256 a, uint256 b) internal returns (uint256) {
+    uint256 c = a * b;
+    require(a == 0 || c / a == b);
+    return c;
+  }
 
-// contract SafeMath {
-//   function safeMul(uint256 a, uint256 b) internal returns (uint256) {
-//     uint256 c = a * b;
-//     require(a == 0 || c / a == b);
-//     return c;
+  function safeDiv(uint256 a, uint256 b) internal returns (uint256) {
+    require(b > 0);
+    uint256 c = a / b;
+    require(a == b * c + a % b);
+    return c;
+  }
+
+  function safeSub(uint256 a, uint256 b) internal returns (uint256) {
+    require(b <= a);
+    return a - b;
+  }
+
+  function safeAdd(uint256 a, uint256 b) internal returns (uint256) {
+    uint256 c = a + b;
+    require(c>=a && c>=b);
+    return c;
+  }
+
+//   function assert(bool assertion) internal {
+//     if (!assertion) {
+//       throw;
+//     }
 //   }
+}
 
-//   function safeDiv(uint256 a, uint256 b) internal returns (uint256) {
-//     require(b > 0);
-//     uint256 c = a / b;
-//     require(a == b * c + a % b);
-//     return c;
-//   }
-
-//   function safeSub(uint256 a, uint256 b) internal returns (uint256) {
-//     require(b <= a);
-//     return a - b;
-//   }
-
-//   function safeAdd(uint256 a, uint256 b) internal returns (uint256) {
-//     uint256 c = a + b;
-//     require(c>=a && c>=b);
-//     return c;
-//   }
-
-// //   function assert(bool assertion) internal {
-// //     if (!assertion) {
-// //       throw;
-// //     }
-// //   }
-// }
-
-contract JOONCOIN is ERC20 {
+contract GNC is ERC20 {
     using SafeMath for uint256;
     string public name;
     string public symbol;
