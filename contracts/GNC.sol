@@ -1,7 +1,5 @@
 pragma solidity ^0.5.0;
 
-import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
-
 /**
  * Math operations with safety checks
  */
@@ -36,14 +34,12 @@ contract SafeMath {
 //     }
 //   }
 }
-
-contract GNC is ERC20 {
-    using SafeMath for uint256;
+contract GNC is SafeMath{
     string public name;
     string public symbol;
     uint8 public decimals;
     uint256 public totalSupply;
-	address public owner;
+	address payable owner;
 
     /* This creates an array with all balances */
     mapping (address => uint256) public balanceOf;
