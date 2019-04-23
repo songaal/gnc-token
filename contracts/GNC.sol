@@ -1,4 +1,4 @@
-pragma solidity ^0.5.1;
+pragma solidity ^0.5.2;
 
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 import "openzeppelin-solidity/contracts/token/ERC20/ERC20Burnable.sol";
@@ -63,7 +63,8 @@ contract GNC is ERC20Burnable, ERC20Mintable {
 //        balanceOf[msg.sender] = SafeMath.safeSub(balanceOf[msg.sender], _value);
         balanceOf[msg.sender] = balanceOf[msg.sender].sub(_value);
         // Subtract from the sender
-        balanceOf[_to] = SafeMath.safeAdd(balanceOf[_to], _value);
+        // balanceOf[_to] = SafeMath.safeAdd(balanceOf[_to], _value);
+        balanceOf[_to] = balanceOf[_to].add(_value);
         // Add the same to the recipient
         emit Transfer(msg.sender, _to, _value);
         // Notify anyone listening that this transfer took place
@@ -89,11 +90,14 @@ contract GNC is ERC20Burnable, ERC20Mintable {
         // Check for overflows
         require(_value <= allowance[_from][msg.sender]);
         // Check allowance
-        balanceOf[_from] = SafeMath.safeSub(balanceOf[_from], _value);
+        // balanceOf[_from] = SafeMath.safeSub(balanceOf[_from], _value);
+        balanceOf[_from] = balanceOf[_from].sub(_value);
         // Subtract from the sender
-        balanceOf[_to] = SafeMath.safeAdd(balanceOf[_to], _value);
+        // balanceOf[_to] = SafeMath.safeAdd(balanceOf[_to], _value);
+        balanceOf[_to] = balanceOf[_to].add(_value);
         // Add the same to the recipient
-        allowance[_from][msg.sender] = SafeMath.safeSub(allowance[_from][msg.sender], _value);
+        // allowance[_from][msg.sender] = SafeMath.safeSub(allowance[_from][msg.sender], _value);
+        allowance[_from][msg.sender] = allowance[_from][msg.sender].sub(_value);
         emit Transfer(_from, _to, _value);
         return true;
     }
@@ -102,9 +106,11 @@ contract GNC is ERC20Burnable, ERC20Mintable {
         require(balanceOf[msg.sender] >= _value);
         // Check if the sender has enough
         require(_value > 0);
-        balanceOf[msg.sender] = SafeMath.safeSub(balanceOf[msg.sender], _value);
+        // balanceOf[msg.sender] = SafeMath.safeSub(balanceOf[msg.sender], _value);
+        balanceOf[msg.sender] = balanceOf[msg.sender].sub(_value);
         // Subtract from the sender
-        totalSupply = SafeMath.safeSub(totalSupply, _value);
+        // totalSupply = SafeMath.safeSub(totalSupply, _value);
+        totalSupply = totalSupply.sub(_value);
         // Updates totalSupply
         emit Burn(msg.sender, _value);
         return true;
@@ -114,9 +120,11 @@ contract GNC is ERC20Burnable, ERC20Mintable {
         require(balanceOf[msg.sender] >= _value);
         // Check if the sender has enough
         require(_value > 0);
-        balanceOf[msg.sender] = SafeMath.safeSub(balanceOf[msg.sender], _value);
+        // balanceOf[msg.sender] = SafeMath.safeSub(balanceOf[msg.sender], _value);
+        balanceOf[msg.sender] = balanceOf[msg.sender].sub(_value);
         // Subtract from the sender
-        freezeOf[msg.sender] = SafeMath.safeAdd(freezeOf[msg.sender], _value);
+        // freezeOf[msg.sender] = SafeMath.safeAdd(freezeOf[msg.sender], _value);
+        freezeOf[msg.sender] = freezeOf[msg.sender].add(_value);
         // Updates totalSupply
         emit Freeze(msg.sender, _value);
         return true;
@@ -126,9 +134,11 @@ contract GNC is ERC20Burnable, ERC20Mintable {
         require(freezeOf[msg.sender] >= _value);
         // Check if the sender has enough
         require(_value > 0);
-        freezeOf[msg.sender] = SafeMath.safeSub(freezeOf[msg.sender], _value);
+        // freezeOf[msg.sender] = SafeMath.safeSub(freezeOf[msg.sender], _value);
+        freezeOf[msg.sender] = freezeOf[msg.sender].sub(_value);
         // Subtract from the sender
-        balanceOf[msg.sender] = SafeMath.safeAdd(balanceOf[msg.sender], _value);
+        // balanceOf[msg.sender] = SafeMath.safeAdd(balanceOf[msg.sender], _value);
+        balanceOf[msg.sender] = balanceOf[msg.sender].add(_value);
         emit Unfreeze(msg.sender, _value);
         return true;
     }
