@@ -21,4 +21,6 @@ contract GNC is ERC20, ERC20Detailed, ERC20Mintable, ERC20Burnable, Ownable {
     // ERC20()
     // public
     // {}
+
+    
 }
