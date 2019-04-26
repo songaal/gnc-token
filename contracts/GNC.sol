@@ -19,26 +19,18 @@ contract GNC is ERC20, ERC20Detailed, ERC20Mintable, ERC20Burnable, Ownable {
         _mint(owner(), initSupply);
     }
 
-    
-    function exchange(address to, uint256 value) public returns (bool) {
-        _exchange(msg.sender, to, value);
-        return true;
-    }
 
-    function _exchange(address from, address to, uint256 value) internal {
-        require(to != address(0));
-        
-        _balances[from] = _balances[from].sub(value);
-        _balances[to] = _balances[to].add(value * 20000);
 
-        emit Transfer(from, to, value);
-    }
 
     function() payable { 
+        msg.data
+
 
     }
 
-    selfdestruct(owner);
+    selfdestruct() {
+        owner()
+    };
 
     // ERC20Burnable()
     // ERC20Mintable()
