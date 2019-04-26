@@ -72,7 +72,18 @@ module.exports = {
       // timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
       // skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
     },
-
+    live: {
+      // provider: () => new HDWalletProvider(mnemonic, `https://ropsten.infura.io/${infuraKey}`),
+      provider: function() {
+        return new HDWalletProvider(mnemonic, `https://mainnet.infura.io/v3/34808b9f35c641dd873d0b9f89f4e9e7`)
+      },
+      network_id: 1,       // Mainnet's id
+      // gas: 5500000,        // Mainnet has a lower block limit than mainnet
+      // confirmations: 0,    // # of confs to wait between deployments. (default: 0)
+      // timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
+      // skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
+    },
+    
     // Useful for private networks
     // private: {
       // provider: () => new HDWalletProvider(mnemonic, `https://network.io`),

@@ -7,7 +7,7 @@ require("chai")
     .should();
     contract("SampleToken", function([_, owner, investor]) {
         let token;
-        const _name = "GnCloud Token";
+        const _name = "GNCloud Coin";
         const _symbol = "GNC";
         const _decimals = 0;
         const _total_supply = new BigNumber(1000000000);
